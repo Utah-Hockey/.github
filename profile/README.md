@@ -1,19 +1,30 @@
 # Utah Hockey
 
-Welcome to the GitHub home for Utah Hockey’s technology projects.
+Welcome to the GitHub home for University of Utah Hockey’s technology projects.
 
-We build and maintain the systems that support Utah Hockey’s website, content workflows, statistics, schedules, media, and community operations. Most of this work supports a volunteer-driven organization, so our goal is to keep the stack reliable, affordable, secure, and easy for future contributors to understand.
+We build and maintain the systems behind the Utah Hockey website, mobile app, statistics, schedules, media, and game-day broadcast. Most of this work supports a volunteer-driven organization, so our goal is to keep the stack reliable, affordable, secure, and easy for future contributors to understand.
 
-## What We Work On
+## How It Fits Together
 
-Our repositories may include work related to:
+```text
+HockeyTech / LeagueStat -> API Plugin -> WordPress site (theme), mobile app, broadcast graphics
+```
 
-- WordPress development and theme modernization
-- AWS-hosted infrastructure and deployment workflows
-- HockeyTech schedule, roster, and statistics integrations
-- Pods, Gravity Forms, and other WordPress data workflows
-- Automation for publishing, media, and operational tasks
-- Internal tools that help volunteers manage Utah Hockey content
+The API Plugin is the single integration point for HockeyTech data. The theme, mobile app, and broadcast tools read its normalized REST API rather than calling HockeyTech directly.
+
+## Repositories
+
+| Repository | What it is |
+|---|---|
+| [UtahHockey-Modern-Theme](https://github.com/Utah-Hockey/UtahHockey-Modern-Theme) | The live WordPress theme for the website. Presentation only; data comes from the plugins. |
+| [API-Plugin](https://github.com/Utah-Hockey/API-Plugin) | WordPress plugin that normalizes HockeyTech data into a REST API and renders Game Center and player profiles. Settings live under **Custom API Settings** (API, Mobile App, and Holiday & Event Overlays tabs). |
+| [Apparel-Plugin](https://github.com/Utah-Hockey/Apparel-Plugin) | WordPress plugin for the Team Store: the apparel marketing image and the featured apparel scheduler used by the homepage and mobile app. Split out of API-Plugin. |
+| [mu-plugins](https://github.com/Utah-Hockey/mu-plugins) | Must-use WordPress plugins for behavior that has to load no matter which theme is active. |
+| [UtahHockey-MobileApp](https://github.com/Utah-Hockey/UtahHockey-MobileApp) | Flutter app with news, tickets, schedules, standings, rosters, Game Center, video, and a historical archive. iPadOS, macOS, and watchOS versions are in progress. |
+| [CaptivateScripts](https://github.com/Utah-Hockey/CaptivateScripts) | Planned Google Sheets / Captivate client for broadcast graphics, built on the API Plugin. |
+| [UtahHockey-UpdateAndMigration-2026](https://github.com/Utah-Hockey/UtahHockey-UpdateAndMigration-2026) | Infrastructure, migration automation, release notes, and the cross-repository backlog for the 2026 platform update. |
+
+Most project repositories are private to organization members.
 
 ## Project Priorities
 
@@ -24,58 +35,28 @@ We try to build systems that are:
 - **Cost-conscious** — designed for nonprofit and volunteer budgets
 - **Accessible** — usable across devices and friendly to all site visitors
 - **Secure** — respectful of user accounts, admin access, and operational data
-- **Future-ready** — built so we can improve stats, media, tickets, volunteering, and commerce over time
 
-## Current Technical Focus
+## Current Focus
 
-Our active roadmap includes:
+The 2026 website cutover to the new theme and AWS hosting is complete. Current work includes:
 
-- Modernizing the Utah Hockey WordPress theme
-- Improving performance on the AWS-hosted stack
-- Preserving and cleaning up legacy site content
-- Rebuilding dynamic homepage and navigation experiences
-- Integrating HockeyTech data more cleanly
-- Improving volunteer, forms, commerce, and media workflows
-- Documenting the launch and post-launch maintenance process
+- Retiring the remaining legacy plugin and content dependencies
+- Moving temporary MU plugin styling into the theme
+- Finishing roster, history, and Game Center cleanup
+- Building the Captivate broadcast client on the API Plugin
+- Bringing the mobile app to iPad, Mac, and Apple Watch
 
 ## Contributing
 
 Utah Hockey technology work is volunteer-supported. Contributions should be practical, documented, and respectful of the live production site.
 
-Before making changes:
-
 1. Read the repository README and open issues.
-2. Work from a feature branch.
+2. Work from a feature branch and open a pull request against the repository’s default branch.
 3. Keep changes focused and easy to review.
 4. Document anything that affects deployment, data, forms, plugins, or AWS resources.
-5. Avoid committing secrets, API keys, database dumps, or production credentials.
+5. Never commit secrets, API keys, database dumps, or production credentials.
 
-Good contributions include:
-
-- Bug fixes
-- Documentation improvements
-- WordPress template cleanup
-- Performance improvements
-- Accessibility fixes
-- Safer automation
-- Better developer setup instructions
-- Migration and launch checklist improvements
-
-## Development Notes
-
-Because many of these projects touch production systems, contributors should assume that:
-
-- WordPress content and plugin data must be preserved unless explicitly marked for removal.
-- Production credentials should never be stored in GitHub.
-- Database changes should be documented before deployment.
-- Large media files, backups, and SQL dumps should not be committed unless specifically approved.
-- Launch-critical changes should be tested in staging before going live.
-
-## About Utah Hockey
-
-Utah Hockey supports the hockey community through news, coverage, team information, schedules, statistics, media, and related resources.
-
-This GitHub organization exists to help keep that digital infrastructure organized, maintainable, and ready for the next season.
+Merging to the default branch of the theme and plugin repositories deploys to production automatically, so test changes before you merge.
 
 ---
 
